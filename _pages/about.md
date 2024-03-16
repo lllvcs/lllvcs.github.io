@@ -25,4 +25,5 @@ Hey, all👋
 + 😀 If you have any issues or want to discuss with me, please feel free to contact me via Email ```echo mwdt@pvumppl.mw  | tr '[b-{]' '[a-z]'``` or WeChat ```echo bHZjaGVuZ3NoYW5n | base64 -d```.
 
 
+<script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1ca577db10784fefb79ba60d13735f91"}'></script>
 <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=a&t=tt&d=59CqP65LYcQlQl0drwrM-FWqXnBKWdINHA_lE8uJ9i4&co=2d78ad&ct=ffffff&cmo=3acc3a&cmn=ff5353'></script>
