@@ -12,11 +12,15 @@ redirect_from:
 Education
 ======
 
-* M.Eng. Candidate in Bioinformatics, Center for Excellence in Molecular Cell Science, CAS.
+* M.Eng. in Bioinformatics, CAS Center for Excellence in Molecular Cell Science, 2024.
 * B.Eng. in Information Engineering, Xi'an Jiaotong University, 2021.
 
 Work experience
 ======
+
++ Summer 2024: Research Assistant
+  + City University of Hong Kong
+  + Duties included: Research on Computational Biology.
 
 * Autumn Term 2023: Teaching Assistant  
   * 086000M05002T Python Language and Its Application
