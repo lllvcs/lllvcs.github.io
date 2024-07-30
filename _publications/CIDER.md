@@ -2,9 +2,9 @@
 title: "CIDER: Counterfactual-Invariant Diffusion-based GNN Explainer for Causal Subgraph Inference"
 collection: publications
 permalink: /publication/CIDER
-date: 2024-03-01
+date: 2024-07-28
 venue: 'arXiv'
-paperurl: 'https://me.lvcs.top/files/CIDER.pdf'
+paperurl: 'https://arxiv.org/abs/2407.19376'
 ---
 
-Qibin Zhang<sup>#</sup>, <b>Chengshang LYU</b>, Lingxi CHEN<sup>*</sup>, Luonan Chen<sup>*</sup>.
+Qibin Zhang<sup>#</sup>, <b>Chengshang LYU</b>, Lingxi CHEN, Qiqi Jin, Luonan Chen<sup>*</sup>.
