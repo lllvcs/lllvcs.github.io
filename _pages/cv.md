@@ -11,54 +11,32 @@ redirect_from:
 
 Education
 ======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+
+* M.Eng. in Bioinformatics, CAS Center for Excellence in Molecular Cell Science, 2024.
+* B.Eng. in Information Engineering, Xi'an Jiaotong University, 2021.
 
 Work experience
 ======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
 
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
++ Summer 2024: Research Assistant
+  + City University of Hong Kong
+  + Duties included: Research on Computational Biology and Bioinformatics.
 
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
++ Spring 2021: Intern Teacher
+  + Xi'an Jiaotong University Affiliated High School
+  + Duties included: Information technology course.
 
-Publications
+* Autumn 2019 ~ Spring 2021: Trainee
+  * Xi'an Nroad Network Technology Co., Ltd
+  * Duties included: Manager of clients.
+
+Service
 ======
-  <ul>{% for post in site.publications reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+
+* Autumn 2022 ~ Summer 2024: HPC Administrator
+  * Key Laboratory of Systems Health Science of Zhejiang Province
+  * Duties included: Daily maintenance, Network management, Business engagement with equipment suppliers.
+
++ Autumn 2017 ~ Summer 2021: Member and Deputy President
+  + Xi'an Jiaotong University Association of Network Administrator
+  + Duties included: Campus network management, Mirror site management, Organizing activities.
