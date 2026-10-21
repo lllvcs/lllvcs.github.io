@@ -1,0 +1,30 @@
+/* ==========================================================================
+   SITE-SPECIFIC CUSTOMISATIONS
+   Loaded after assets/css/main.css, so rules here win over the template defaults.
+   ========================================================================== */
+
+/* The template pins .page__footer to the bottom of the viewport. The custom visitor
+   tracker in the footer makes the footer taller than a single line, so keep the footer
+   in the normal document flow (the same approach the template used before its 2025
+   footer rewrite) and let scripts.html position it via the body margin. */
+.page__footer {
+  position: absolute;
+  bottom: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .page__footer {
+    position: relative;
+    bottom: auto;
+  }
+}
+
+/* Long unbreakable strings (inline code such as the obfuscated email command, long
+   URLs, hashes) used to widen the whole page on narrow screens. Let them wrap. */
+.page__content,
+.page__content p,
+.page__content li,
+.page__content a {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}

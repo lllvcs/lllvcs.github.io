@@ -3,7 +3,7 @@ title: "2025-26 Semester A"
 collection: teaching
 type: "Teaching Assistant - Undergraduate/Graduate course"
 permalink: /teaching/2025-26A-teaching
-venue: "City University of Hong Kong, Department of Biomedical Sciences"
+venue: "City University of Hong Kong"
 date: 2025-09-01
 location: "Hong Kong"
 ---
