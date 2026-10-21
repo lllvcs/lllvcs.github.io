@@ -28,13 +28,13 @@ kept when updating again.
 
 | Upstream change | Why it was skipped |
 | --- | --- |
-| `Gemfile` switching to Jekyll 4.4 + `kramdown`, dropping `github-pages` | This site is deployed by GitHub Pages' classic build, which runs **Jekyll 3.10.0 + Ruby Sass 3.7.4**. Keeping `github-pages` makes local builds match production. |
-| GitHub Actions deploy workflow (`.github/workflows/jekyll.yml`) | Would switch the repo's Pages source from the classic build to Actions. Do that only as a deliberate migration. |
+| `Gemfile` switching to Jekyll 4.4 + `kramdown`, dropping `github-pages` | The site was built with GitHub Pages' classic build (**Jekyll 3.10.0 + Ruby Sass 3.7.4**) for years. Keeping `github-pages` means the Actions build, local previews and historical output all use the same toolchain; the migration to Jekyll 4.4 can be done separately. |
+| Upstream's own deployment workflow (`.github/workflows/jekyll.yml`) | Replaced by a site-specific `pages.yml` (see [Deployment](#deployment)), so this repo controls its own build and deploy steps. |
 | Dart Sass syntax (`@use 'sass:math'`, `math.div()`) in `_sass/_themes.scss`, `_sass/vendor/breakpoint`, `_sass/vendor/susy` | Ruby Sass 3.7.4 cannot parse it. Those vendor files were kept at their working versions; only the site-level Sass files follow the new layout. |
 | `append` filter inside `assets/css/main.scss` theme imports | Jekyll 3.10's SCSS pipeline does not evaluate that filter chain inside an `@import` list, so the theme files are referenced literally (`theme/default_light`, `theme/default_dark`). |
 | `author_profile: true` in `_config.yml` defaults | The site intentionally shows the sidebar only on About/Publications/CV/Teaching-style pages. |
 | Removed `patents` publication category | `_publications/NIEE_Patent.md` uses it. |
-| Dockerfile rewrite, `.gitignore` changes | Not needed for this deployment, and `Gemfile.lock` is intentionally tracked here. |
+| Dockerfile rewrite, `.gitignore` changes | Not needed. `Gemfile.lock` stays untracked (it is gitignored), so CI resolves gems from the `Gemfile` just like a fresh local checkout. |
 
 ## Local customisations to preserve on future upgrades
 
@@ -53,9 +53,32 @@ kept when updating again.
    updated `manifest.json` / `browserconfig.xml`.
 8. **`_data/navigation.yml`** — Talks, Portfolio, Blog Posts and Guide are intentionally commented out.
 
+## Deployment
+
+The site is published by GitHub Actions, not by the classic "deploy from a branch" builder.
+
+| Workflow | Trigger | Purpose |
+| --- | --- | --- |
+| `.github/workflows/pages.yml` | push to `master`, manual dispatch | Builds with Jekyll and deploys `_site` to GitHub Pages (`actions/deploy-pages`). |
+| `.github/workflows/build.yml` | pull requests, manual dispatch | Build-only check so breakage is caught before it reaches `master`. |
+| `.github/workflows/scrape_talks.yml` | push touching `talks/**`, manual dispatch | Regenerates talk map data (unrelated to deployment). |
+
+Each push to `master` therefore produces a new deployment. The deploy job runs in the
+`github-pages` environment and reports the published URL in the run summary.
+
+**One-time repository setting (required):** the workflow only takes effect once the Pages source is
+switched to GitHub Actions. In the repository go to **Settings → Pages → Build and deployment →
+Source** and choose **GitHub Actions**. Keep the existing custom domain (`me.lvcs.top`) and
+**Enforce HTTPS** enabled on that page. Until this switch is made, the classic builder keeps
+publishing the same way it always has, so the change cannot cause downtime.
+
+If a deployment ever fails, GitHub keeps serving the last successful deployment; check the Actions
+log for the failing step. To redeploy the current commit without a new push, run the
+**Deploy to GitHub Pages** workflow manually from the Actions tab.
+
 ## Building / previewing locally
 
-GitHub Pages uses Jekyll 3.10.0, so the repo keeps the `github-pages` gem:
+The `Gemfile` still pins the `github-pages` gem (Jekyll 3.10.0), matching what CI runs:
 
 ```bash
 bundle install

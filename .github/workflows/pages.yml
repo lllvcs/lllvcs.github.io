@@ -1,0 +1,91 @@
+name: Deploy to GitHub Pages
+
+# Builds the Jekyll site and publishes it to GitHub Pages on every push to the
+# default branch. The site is served from the custom domain configured under
+# Settings -> Pages (me.lvcs.top); configure-pages reports that as an empty base
+# path, and the same value is passed to Jekyll so assets resolve identically.
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch: # allow manual redeploys from the Actions tab
+
+# Required by the Pages deployment: read the repo, publish a Pages site, and
+# mint an OIDC token to prove the deployment comes from this workflow.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never run two Pages deployments at the same time; queue them instead so a
+# later commit is not cancelled halfway through publishing.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build site
+    # Pinned instead of ubuntu-latest so a future runner image change cannot break
+    # the Jekyll 3.10 toolchain unexpectedly.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # GitHub Pages' classic build uses Jekyll 3.10; the Gemfile pins it through
+          # the github-pages gem so local previews and CI builds match production.
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Configure GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v6
+
+      - name: Build with Jekyll
+        env:
+          JEKYLL_ENV: production
+          # jekyll-github-metadata (pulled in by the github-pages gem) reads from the
+          # GitHub API; the token avoids anonymous rate limits during the build.
+          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bundle exec jekyll build \
+            --baseurl "${{ steps.pages.outputs.base_path }}" \
+            --strict_front_matter \
+            --trace
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+      - name: Write deployment summary
+        run: |
+          {
+            echo "### Deployed to GitHub Pages"
+            echo ""
+            echo "- URL: ${{ steps.deployment.outputs.page_url }}"
+            echo "- Commit: \`${{ github.sha }}\`"
+            echo "- Trigger: ${{ github.event_name }}"
+          } >> "$GITHUB_STEP_SUMMARY"

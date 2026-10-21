@@ -1,36 +1,51 @@
 name: Scrape Talk Locations
 
+# Regenerates the talk map data from the talk pages. This is unrelated to the
+# deployment (see pages.yml); it only writes the generated map data back to the
+# repository.
+
 on:
   push:
     paths:
       - 'talks/**'
       - 'talkmap.ipynb'
+  workflow_dispatch:
+
+# The job commits the regenerated talkmap data back to the repository.
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape-talks
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Check out repository
+        uses: actions/checkout@v7
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'  # Specify the Python version you need
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
 
-    - name: Install dependencies
-      run: |
-        pip install jupyter pandas requests beautifulsoup4 geopy  # Add other dependencies as needed
-        pip install getorg --upgrade
+      - name: Install dependencies
+        run: |
+          pip install jupyter pandas requests beautifulsoup4 geopy
+          pip install getorg --upgrade
 
-    - name: Run Jupyter Notebook
-      run: |
-        jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
+      - name: Run Jupyter Notebook
+        run: |
+          jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
 
-    - name: Commit changes
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add .
-        git commit -m "Automated update of talk locations" || echo "No changes to commit"
-        git push
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Automated update of talk locations" || echo "No changes to commit"
+          git push

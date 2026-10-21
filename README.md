@@ -3,9 +3,11 @@
 
 > **This repository is a personal site based on Academic Pages, not the template itself.**
 > See [UPGRADE_NOTES.md](UPGRADE_NOTES.md) for the last template refresh, the sections of the
-> upstream template that were intentionally not adopted, and the local customisations to keep when
-> updating again. This site is deployed with the classic GitHub Pages build (Jekyll 3.10), which is
-> why the `Gemfile` keeps `github-pages` instead of Jekyll 4.4.
+> upstream template that were intentionally not adopted, the local customisations to keep when
+> updating again, and the deployment setup. The site is published by GitHub Actions
+> (`.github/workflows/pages.yml`) on every push to `master` — after the one-time switch of
+> **Settings → Pages → Source** to **GitHub Actions** described there. The `Gemfile` keeps
+> `github-pages` so the build uses the same Jekyll 3.10 toolchain as the original GitHub Pages build.
 
 ![Academic Pages template example](images/themes/homepage-light.png "Academic Pages template example")
 

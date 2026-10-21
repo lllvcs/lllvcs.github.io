@@ -194,6 +194,7 @@ exclude:
   - package.json*
   - Rakefile
   - README
+  - UPGRADE_NOTES.md
   - tmp
   - vendor
 keep_files:

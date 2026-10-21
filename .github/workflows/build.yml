@@ -1,0 +1,55 @@
+name: Build site
+
+# Validates that the site still builds, without deploying anything.
+# Useful for pull requests and for re-checking the build on demand.
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+# Read-only: this workflow never publishes anything.
+permissions:
+  contents: read
+
+# A newer commit on the same branch makes the previous check obsolete.
+concurrency:
+  group: build-check-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Jekyll build
+    # Same runner image as the deployment workflow, so this check matches what
+    # actually gets published.
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Matches the Ruby version used to develop the site. GitHub Pages' classic
+          # build runs Jekyll 3.10, which is what the Gemfile pins via the
+          # github-pages gem, so the check mirrors production.
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Build with Jekyll
+        env:
+          JEKYLL_ENV: production
+          # jekyll-github-metadata (pulled in by the github-pages gem) reads from the
+          # GitHub API; the token avoids anonymous rate limits during the build.
+          JEKYLL_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          bundle exec jekyll build \
+            --strict_front_matter \
+            --trace
+
+      - name: Verify build output
+        run: |
+          test -f _site/index.html || { echo "::error::_site/index.html was not generated"; exit 1; }
+          echo "Generated $(find _site -name '*.html' | wc -l) HTML pages"
+          echo "CSS: $(ls _site/assets/css | tr '\n' ' ')"

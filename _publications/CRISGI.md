@@ -14,7 +14,7 @@ Authors: <b>Chengshang LYU<sup>#</sup></b>, Anna JIANG, Ka Ho NG, Xiaoyu LIU, Xi
 
 DOI: [10.1186/s13059-026-04265-x](https://doi.org/10.1186/s13059-026-04265-x)
 
-![](/images/publications/CRISGI.png)
+![](/images/publications/CRISGI_Fig1.png)
 
 Abstract: Critical transitions in gene regulatory networks presage abrupt disease shifts, yet existing tools rank signals unsupervised at gene/module level, use unweighted enrichments, and underuse multimodal data. We present CRISGI, which models interaction-level critical transition dynamics across bulk, single-cell, and spatial transcriptomics, providing phenotype- and observation-level critical transition-score rank enrichment and critical transition presence/onset prediction. CRISGI outperforms existing methods on in silico benchmarks, prioritizes 128 symptom-onset-predictive interactions in H3N2 influenza with eight external validation datasets, uncovers stage-specific survival-linked interactions across TCGA cohorts, highlights CDK–FOXO interactions in colorectal cancer cells, and links LUM-centric interactions to invasive breast-tumor regions, yielding testable mechanistic hypotheses.
 
