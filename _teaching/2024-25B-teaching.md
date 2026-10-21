@@ -1,8 +1,8 @@
 ---
-title: "Spring Term 2024-2025"
+title: "2024-25 Semester B"
 collection: teaching
 type: "Teaching Assistant - Graduate course"
-permalink: /teaching/2024-2025-spring-teaching
+permalink: /teaching/2024-25B-teaching
 venue: "City University of Hong Kong, Department of Biomedical Sciences"
 date: 2025-01-01
 location: "Hong Kong"

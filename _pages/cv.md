@@ -12,10 +12,11 @@ redirect_from:
 Education
 ======
 
+* Ph.D. Candidate in Biomedical Sciences, City University of Hong Kong, 2028.
 * M.Eng. in Bioinformatics, CAS Center for Excellence in Molecular Cell Science, 2024.
 * B.Eng. in Information Engineering, Xi'an Jiaotong University, 2021.
 
-Work experience
+Working experience
 ======
 
 + Summer 2024: Research Assistant
